@@ -42,6 +42,50 @@ namespace CodeFirstApproach.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null || studentDb.Students == null)
+            {
+                return NotFound();
+            }
+            var stdData = await studentDb.Students.FirstOrDefaultAsync(s => s.Id == id);
+            if (stdData == null)
+            {
+                return NotFound();
+            }
+            return View(stdData);
+        }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null || studentDb.Students == null)
+            {
+                return NotFound();
+            }
+            var stdData = await studentDb.Students.FindAsync(id);
+            if (stdData == null)
+            {
+                return NotFound();
+            }
+            return View(stdData);
+        }
+
+        [HttpPost]  
+        public IActionResult Edit(int? id,Student std)
+        {
+            if(id != std.Id)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                studentDb.Students.Update(std);
+                studentDb.SaveChanges();
+                return RedirectToAction("Index", "Home");
+            }
+            return View(std);
+        }
+
         public IActionResult Privacy()
         {
             return View();

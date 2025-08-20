@@ -14,5 +14,6 @@ namespace CodeFirstApproach.Models
 
         [Column("Student Gender", TypeName = "varchar(100)")]
         public string Gender { get; set; }
+        public int Standard { get; set; }
     }
 }

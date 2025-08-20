@@ -6,16 +6,23 @@ namespace CodeFirstApproach.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        //private readonly ILogger<HomeController> _logger;
+        private readonly StudentDbContext studentDb;
 
-        public HomeController(ILogger<HomeController> logger)
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    _logger = logger;
+        //}
+
+        public HomeController(StudentDbContext studentDb)
         {
-            _logger = logger;
+            this.studentDb = studentDb;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var studentData = studentDb.Students.ToList();
+            return View(studentData);
         }
 
         public IActionResult Privacy()

@@ -38,6 +38,7 @@ namespace CodeFirstApproach.Controllers
             {
                 await studentDb.Students.AddAsync(std);
                 await studentDb.SaveChangesAsync();
+                TempData["successful_insert"] = "Student created successfully";
                 return RedirectToAction("Index", "Home");
             }
             return View();
@@ -82,6 +83,7 @@ namespace CodeFirstApproach.Controllers
             {
                 studentDb.Students.Update(std);
                 await studentDb.SaveChangesAsync();
+                TempData["successful_update"] = "Student updated successfully";
                 return RedirectToAction("Index", "Home");
             }
             return View(std);
@@ -109,6 +111,7 @@ namespace CodeFirstApproach.Controllers
                 studentDb.Students.Remove(stdData);
             }
             await studentDb.SaveChangesAsync();
+            TempData["successful_delete"] = "Student deleted successfully";
             return RedirectToAction("Index","Home");
         }
         public IActionResult Privacy()
